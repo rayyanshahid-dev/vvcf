@@ -2,22 +2,22 @@
 SRCDIR = src/
 SRCS   = src/*.c
 CC 	   = gcc
-TARGET =
+TARGET = vvcf
 
 CFLAGS = -Wall -Wextra -O3 
 LDFLAGS = 
 
 # Default target
-all: 
-
+all: $(TARGET) 
+ 
 # Rule to build the target executable
-: 
-	  -o   
+$(TARGET): $(SRCS)                                                                                                                                                                                     
+	$(CC) $(CFLAGS) -o $(TARGET) $(SRCS) $(LDFLAGS)   
 
 run:
-	./
+	./$(TARGET)
 
 # Clean target to remove the compiled binary
 clean:
-	rm -f 
+	rm -f $(TARGET) *.o 
 
