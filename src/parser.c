@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "../includes/headers.h"
+#include "../includes/diplotype_phenotype.h"
 
-int main(int argc, char* argv[]){
-    return 0;
-}
+
+
