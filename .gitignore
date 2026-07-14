@@ -6,3 +6,5 @@
 *.out
 a.out
 *.md
+*.md.backup
+*.pdf
