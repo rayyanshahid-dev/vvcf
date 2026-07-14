@@ -2,6 +2,7 @@
 SRCDIR = src/
 SRCS   = src/*.c
 CC 	   = gcc
+WCC	   = x86_64-w64-mingw32-gcc
 TARGET = vvcf
 
 CFLAGS = -Wall -Wextra -O3 
@@ -19,5 +20,7 @@ run:
 
 # Clean target to remove the compiled binary
 clean:
-	rm -f $(TARGET) *.o 
+	rm -f $(TARGET) *.o *.exe 
 
+windows:
+	$(WCC) $(CFLAGS) -o $(TARGET) $(SRCS) $(LDFLAGS)
