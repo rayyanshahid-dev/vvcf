@@ -1,4 +1,4 @@
-module BAMparser
+module bam_parser
 
 using XAM
 

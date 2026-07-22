@@ -9,3 +9,6 @@ a.out
 *.md.backup
 *.pdf
 *.bam
+*.xlsx
+*.txt
+*.mk
