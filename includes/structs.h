@@ -1,9 +1,8 @@
-#ifndef HEADER_H
-#define HEADER_H
+#ifndef STRUCTS_H
+#define STRUCTS_H
 
 #include <stdio.h>
 #include <stdint.h>
-
 
 typedef struct vcf_header {
 	char 		*chrom;
@@ -28,5 +27,14 @@ typedef struct report_header {
 	char		*genome;
 	char		*guid;
 } report_header;
+
+typedef struct variant {
+    char *chrom;
+    int32_t pos;
+    char *ref;
+    char *alt;
+    char *genotype;  // "0/1", "1/1", etc.
+} variant;
+
 
 #endif
