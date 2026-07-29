@@ -6,11 +6,11 @@ WCC	   = x86_64-w64-mingw32-gcc
 TARGET = vvcf
 
 # julia stuff
--include .julia_flags.mk
+# -include .julia_flags.mk
 
-CFLAGS  = -Wall -Wextra -O3 $(JL_CFLAGS) 
-LDFLAGS = $(JL_LDFLAGS)
-LDLIBS  = $(JL_LDLIBS)
+CFLAGS  = -Wall -Wextra -Os -static #$(JL_CFLAGS) 
+LDFLAGS = -lhts
+LDLIBS  = # $(JL_LDLIBS)
 
 # Default target
 all: $(TARGET) 

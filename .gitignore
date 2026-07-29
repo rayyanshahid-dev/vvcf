@@ -13,3 +13,4 @@ a.out
 *.txt
 *.mk
 *.lock
+*.json
