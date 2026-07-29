@@ -6,12 +6,10 @@
 // #include "../includes/interpretation.h"
 // #include "../includes/structs.h"
 #include "../includes/rsid.h"
+#include "../includes/cyp2c19_allele_lut.h"
 
 static void usage_info(FILE *fp){
-    fprintf(fp, "Usage: vvcf inputfile\n\
-To use vvcf, run the program and include an input BAM file.\n\
-This will then autogenerate a pharmacogenomics report based \n\
-on the data available in the BAM file.\n");
+    fprintf(fp, "Usage: vvcf [inputfile] [outputfile]\n");
 }
 
 int main(int argc, char** argv[]){

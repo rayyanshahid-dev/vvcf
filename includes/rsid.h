@@ -10,7 +10,7 @@
 
 // rsid information taken from ClinPGx.org(https://www.clinpgx.org/page/cyp2c19RefMaterials)
 
-const char *cyp2c19_rsid_array[] = {
+static const char * const cyp2c19_rsid_array[] = {
 "rs12248560",
 "rs28399504",	
 "rs367543002",	
