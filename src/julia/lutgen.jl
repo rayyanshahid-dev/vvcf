@@ -192,10 +192,11 @@ function allele_match(observed_mask::UInt, allele_names::Vector{String}, allele_
 
             open("../../includes/cyp2c19_allele_lut.h", "w") do io
                 println(io, "/* Header automatically generated at $(now(UTC)) */")
+                println(io, "/* Clinical data taken from ClinPgx (https://www.clinpgx.org/page/cyp2c19RefMaterials)")
                 println(io, "#ifndef CYP2C19_ALLELE_LUT_H")
                 println(io, "#define CYP2C19_ALLELE_LUT_H")
 
-                println(io, "static const char * const cyp2c19_allele_names[] = {$allele_names};")
+                println(io, "static const char cyp2c19_allele_names[][4] = {$allele_names};")
                 println(io, "static const uint64_t cyp2c19_allele_masks[] = {$allele_masks};")
                 println(io, "#define CYP2C19_ALLELE_COUNT $(length(allele_names))")
                 println(io, "#endif")
