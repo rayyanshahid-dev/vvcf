@@ -24,15 +24,10 @@
 #include <stdint.h>
 #include <htslib/sam.h>
 
-static void print_usage(FILE *fp) {
-    fprintf(fp, "Usage: vvcf <input.bam>\n");
-    fprintf(fp, "Reads a BAM file and prints alignment records.\n");
-}
+int file_read(int argc, char *argv[]) {
 
-int read_bam(int argc, char *argv[]) {
-
-
- /* Presumably, this sets up all the header tags
+/* 
+    Presumably, this sets up all the header tags
     and initializes their values to zero
 
     tidname     = target/reference ID
@@ -43,13 +38,18 @@ int read_bam(int argc, char *argv[]) {
 
     const char *inname = NULL;
     samFile *inputfile = NULL;
+    FILE *fp           = fopen(argv[2], "w");
+    if(!fp){
+        fprintf(stderr, "Error: could not open writeable file\n");
+        goto cleanup;
+    }
     sam_hdr_t *in_sam_header = NULL;
     bam1_t *bamdata = NULL;
     int ret_r = 0;
     int ret = EXIT_FAILURE;
 
-    if (argc != 2) {
-        print_usage(stderr);
+    if (argc != 3) {
+
         return -1;
     }
 
@@ -87,13 +87,8 @@ int read_bam(int argc, char *argv[]) {
         int l_qseq = bamdata->core.l_qseq;
         int flag   = bamdata->core.flag;
         int i;
-
-        for(i = 0; i < bamdata->core.n_cigar; i++){
-        printf("CIGAR: %d%c", bam_cigar_oplen(cigar[i]), bam_cigar_opchr(cigar[i]));
-        printf("\n");
-        }
         
-        printf("%d: %s\t%s\t%d\t%d\t%d\t%d\n",
+        fprintf(fp, "%d: %s\t%s\t%d\t%d\t%d\t%d\n",
                record_count,
                qname ? qname : "",
                rname ? rname : "",
@@ -102,11 +97,16 @@ int read_bam(int argc, char *argv[]) {
                l_qseq,
                flag);
 
+    for(i = 0; i < bamdata->core.n_cigar; i++){
+        fprintf(fp, "CIGAR: %d%c", bam_cigar_oplen(cigar[i]), bam_cigar_opchr(cigar[i]));
+        fprintf(fp, "\n");
+        }
+
         record_count++;
 
         // limit output for testing, don't do the whole file!!
         /* TODO: REMOVE BEFORE DAY 10 */
-        if (record_count >= 100) break;
+        if (record_count >= 10000) break;
     }
 
     if (ret_r < -1) {

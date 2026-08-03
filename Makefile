@@ -5,12 +5,9 @@ CC 	   = gcc
 WCC	   = x86_64-w64-mingw32-gcc
 TARGET = vvcf
 
-# julia stuff
-# -include .julia_flags.mk
-
-CFLAGS  = -Wall -Wextra -O3 -march=native -static #$(JL_CFLAGS) 
-LDFLAGS = -lhts
-LDLIBS  = # $(JL_LDLIBS)
+CFLAGS  = -Wall -Wextra -O3 -march=native -static -I/usr/local/include
+LDFLAGS = -L/usr/local/lib -lhts -lpsl -lz -lm -lbz2 -llzma 
+LDLIBS  = 
 
 # Default target
 all: $(TARGET) 
@@ -27,4 +24,7 @@ clean:
 	rm -f $(TARGET) *.o *.exe 
 
 windows:
-	$(WCC) $(CFLAGS) -o $(TARGET) $(SRCS) $(LDFLAGS) $(LDLIBS) 
+	$(WCC) $(CFLAGS) -o $(TARGET) $(SRCS) $(LDFLAGS) $(LDLIBS)
+
+report:
+	pandoc output/*.md -t pdf -o output/report.pdf 
