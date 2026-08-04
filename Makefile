@@ -27,4 +27,8 @@ windows:
 	$(WCC) $(CFLAGS) -o $(TARGET) $(SRCS) $(LDFLAGS) $(LDLIBS)
 
 report:
-	pandoc output/*.md -t pdf -o output/report.pdf 
+	pandoc output/*.md -t pdf -o output/report.pdf \
+		--pdf-engine=xelatex \
+		-V geometry:margin=1in \
+		-V fontsize=11pt
+ 

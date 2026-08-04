@@ -60,14 +60,15 @@
 #include "../includes/cyp2c19_cds_lut.h"
 #include "../includes/dtable_lut.h"
 
+#define TARGET_COUNT 35
+#define BASE_COUNT   5
+
 
 static void usage_info(FILE *fp){
     fprintf(fp, "Usage: vvcf [inputfile] [outputfile]\n");
 }
 
 int main(int argc, char *argv[]){
-    printf("vvcf started\n");
-
     if(argc < 2){
         usage_info(stderr);
         return 1;
@@ -77,13 +78,12 @@ int main(int argc, char *argv[]){
     // 2. look up allele functionality reference to see function status
     // 3. combine two alleles to form diplotype and reference against diplotype phenotype table
     // 4. take clinical data from CDS and assign based on phenotype
-    for (int i = 0; i < 1000000; i++){
+/*    for (int i = 0; i < 1000000; i++){
         for (int j = 0; j < allele_name_count; j++){
         volatile const char *name = cyp2c19_allele_names[j]; 
         }
     }
-
-    printf("CYP2C19 allele position 27 (rs3758581): %u\n", cyp2c19_allele_pos[27]);
+*/
     return file_read(argc, argv);
 
     return 0;
