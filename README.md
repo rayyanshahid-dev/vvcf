@@ -14,17 +14,38 @@ vvcf bakes CPIC/ClinPGx pharmacogenomics data directly into the binary. A Julia 
 
 The entire binary is statically linked. Everything it needs is baked in at compile time. No runtime internet access required. No external reads save for the input BAM file. That goes for Windows as well. It's compiled using mingw under MSYS2, and binaries will be provided to users on Windows machines. No installation required.
 
-## usage
+# usage
 
 The tool is CLI for now. Open up a terminal and navigate to the 'vvcf' directory. 
 
-### Linux
+## Linux
+
+- installation:
+
+```
+make all
+```
+
+### running the program:
 
 ```
 ./vvcf 'input_file.bam' 'output_file'
 ```
 
-### Windows
+## Windows
+
+Executable binaries will be provided - on Windows, there is no need to build the program yourself as the executable is compiled with the Windows system libraries. However, if you wish, the Makefile provides a way for you to build it from source provided you have the following dependencies:
+
+* -lbz2 (bzip2)
+* -llzma (liblzma)
+* -lws2_32 (Winsock2)
+* -lsystre (to fix regcomp issues)
+* -ltre (see above)
+* -lregex (not a native header on Windows)
+* -lintl (GNU gettext when linking POSIX regex)
+* -liconv (library for character set conversion)
+
+### running the program:
 
 ```
 ./vvcf 'input_file.bam' 'output_file'
