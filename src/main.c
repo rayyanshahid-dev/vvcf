@@ -65,7 +65,7 @@
 
 
 static void usage_info(FILE *fp){
-    fprintf(fp, "Usage: vvcf [inputfile] [outputfile]\n");
+    printf("Usage: vvcf [inputfile] [outputfile]\n");
 }
 
 int main(int argc, char *argv[]){

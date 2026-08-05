@@ -52,14 +52,14 @@ static inline int base_to_index(uint8_t base_code) {
     return base_to_idx[base_code & 0xF];  /* mask to 4 bits */
 }
 
-void extract_variants(bam1_t *bamdata, sam_hdr_t *sam_hdr, uint32_t tally[TARGET_COUNT][BASE_COUNT]){
-    int flag   = bamdata->core.flag;
+void extract_variants(bam1_t *bamdata, uint32_t tally[TARGET_COUNT][BASE_COUNT]){
+    int flag            = bamdata->core.flag;
     if (flag & 0x4 || flag & 0x100 || flag & 0x800) return; /* filtering unused/unnecessary flags: unmapped, secondary, supplementary  */
-    int ref_pos = bamdata->core.pos + 1;  // 0-based to 1-based to match HGVS nomenclature + the existing array...
-    int l_qseq = bamdata->core.l_qseq;  
+    int ref_pos         = bamdata->core.pos + 1;  // 0-based to 1-based to match HGVS nomenclature + the existing array...
+    int l_qseq          = bamdata->core.l_qseq;  
     uint32_t *cigar     = bam_get_cigar(bamdata); 
     uint32_t seq_pos    = 0;
-    uint8_t *seq = bam_get_seq(bamdata);
+    uint8_t *seq        = bam_get_seq(bamdata);
     
 
     int n_cigar = bamdata->core.n_cigar;
@@ -155,7 +155,7 @@ int file_read(int argc, char *argv[]) {
     
     /* main read loop */
     while ((ret_r = sam_read1(inputfile, in_sam_header, bamdata)) >= 0) {
-        extract_variants(bamdata, in_sam_header, tally);
+        extract_variants(bamdata, tally);
         const char *qname = bam_get_qname(bamdata);
         const char *rname = sam_hdr_tid2name(in_sam_header, bamdata->core.tid);
         uint32_t *cigar     = bam_get_cigar(bamdata);
