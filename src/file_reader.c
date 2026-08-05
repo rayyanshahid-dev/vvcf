@@ -156,14 +156,14 @@ int file_read(int argc, char *argv[]) {
     /* main read loop */
     while ((ret_r = sam_read1(inputfile, in_sam_header, bamdata)) >= 0) {
         extract_variants(bamdata, tally);
-        const char *qname = bam_get_qname(bamdata);
-        const char *rname = sam_hdr_tid2name(in_sam_header, bamdata->core.tid);
-        uint32_t *cigar     = bam_get_cigar(bamdata);
-        int pos = bamdata->core.pos + 1;  // 0-based to 1-based
-        int mapq = bamdata->core.qual;
-        int l_qseq = bamdata->core.l_qseq;
-        int flag   = bamdata->core.flag;
-        int i;
+        // const char *qname = bam_get_qname(bamdata);
+        // const char *rname = sam_hdr_tid2name(in_sam_header, bamdata->core.tid);
+        // uint32_t *cigar     = bam_get_cigar(bamdata);
+        // int pos = bamdata->core.pos + 1;  // 0-based to 1-based
+        // int mapq = bamdata->core.qual;
+        // int l_qseq = bamdata->core.l_qseq;
+        // int flag   = bamdata->core.flag;
+        // int i;
         
  /*       fprintf(fp, "%d: %s\t%s\t%d\t%d\t%d\t%d\n",
                record_count,
