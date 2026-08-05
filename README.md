@@ -12,7 +12,26 @@ vvcf bakes CPIC/ClinPGx pharmacogenomics data directly into the binary. A Julia 
 4. **Phenotype lookup**: The matched allele pair indexes into a 38×38 phenotype matrix (1444 bytes to fit in L1).
 5. **Report generation**: Results are written to a preformatted Markdown template (also generated programmatically). 
 
-The entire binary is statically linked. Everything it needs is baked in at compile time. No runtime internet access required. No external reads save for the input BAM file.
+The entire binary is statically linked. Everything it needs is baked in at compile time. No runtime internet access required. No external reads save for the input BAM file. That goes for Windows as well. It's compiled using mingw under MSYS2, and binaries will be provided to users on Windows machines. No installation required.
 
+## usage
+
+The tool is CLI for now. Open up a terminal and navigate to the 'vvcf' directory. 
+
+### Linux
+
+```
+./vvcf 'input_file.bam' 'output_file'
+```
+
+### Windows
+
+```
+./vvcf 'input_file.bam' 'output_file'
+```
+
+## Notes
+
+For now, the tool is limited to one gene (CYP2C19) and only parses BAM files. Additionally, it is designed to format output documents into Markdown, so please ensure to add the '.md' file extension to your output filename when calling the program.
 ## status
 in active development
