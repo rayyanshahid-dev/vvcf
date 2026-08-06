@@ -8,7 +8,7 @@ TARGET = vvcf
 CFLAGS   = -Wall -Wextra -O3 -march=native -static -std=c99
 WCFLAGS  = -Wno-error=implicit-function-declaration
 LDFLAGS  = -lhts -lz -lm 
-WLDFLAGS = -lbz2 -llzma -lws2_32 -lsystre -ltre -lregex -lintl -liconv
+WLDFLAGS = -lhts -lbz2 -llzma -lws2_32 -lsystre -ltre -lregex -lintl -liconv
 LDLIBS   =  
 
 # -L/usr/local/lib
