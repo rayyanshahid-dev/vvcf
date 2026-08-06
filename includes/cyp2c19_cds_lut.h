@@ -11,5 +11,76 @@ static const char * const cyp2c19_ehr_notation[] = {"none", "Abnormal/Priority/H
 
 static const char * const cyp2c19_consultation_text[] = {"This result signifies that the patient has an allele combination with uncertain and/or unknown function alleles. The expected phenotype for this patient cannot be determined currently based on the CYP2C19 diplotype result. Please consult a clinical pharmacist for more specific information about how CYP2C19 function influences drug dosing.", "This result signifies that the patient has one copy of a normal function allele and one copy of a no function allele OR one copy of an increased function and one copy of a no function allele. Based on the genotype result this patient is predicted to be an intermediate metabolizer of CYP2C19 substrates. This patient may be at risk for an adverse or poor response to medications that are metabolized by CYP2C19. To avoid an untoward drug response, dose adjustments or alternative therapeutic agents may be necessary for medications metabolized by CYP2C19. Please consult a clinical pharmacist for more information about how CYP2C19 metabolic status influences drug selection and dosing.", "This result signifies that the patient has one copy of a normal function allele and one copy of a decreased function allele OR one copy of an increased function allele and one copy of a decreased function allele OR two copies of a decreased function allele. Based on the genotype result this patient MAY be an intermediate metabolizer of CYP2C19 substrates. This patient may be at risk for an adverse or poor response to medications that are metabolized by CYP2C19. To avoid an untoward drug response, dose adjustments or alternative therapeutic agents may be necessary for medications metabolized by CYP2C19. Please consult a clinical pharmacist for more information about how CYP2C19 metabolic status influences drug selection and dosing.", "This result signifies that the patient has one copy of a decreased function allele and one copy of a no function allele. Based on the genotype result this patient MAY be a poor metabolizer of CYP2C19 substrates. This patient may be at a high risk for an adverse or poor response to medications that are metabolized by CYP2C19. To avoid an untoward drug response, dose adjustments or or alternative therapy may be necessary for medications metabolized by the CYP2C19. Please consult a clinical pharmacist for more information about how CYP2C19 metabolic status influences drug selection and dosing.", "This result signifies that the patient has two copies of a normal function allele. Based on the genotype result this patient is predicted to be an normal metabolizer of CYP2C19 substrates. There is no reason to selectively adjust the dose of most medications that are metabolized by CYP2C19. Please consult a clinical pharmacist for more information about how CYP2C19 metabolic status influences drug selection and dosing.", "This result signifies that the patient has two copies of a no function allele. Based on the genotype result this patient is predicted to be a poor metabolizer of CYP2C19 substrates. This patient may be at a high risk for an adverse or poor response to medications that are metabolized by CYP2C19. To avoid an untoward drug response, dose adjustments or or alternative therapy may be necessary for medications metabolized by the CYP2C19. Please consult a clinical pharmacist for more information about how CYP2C19 metabolic status influences drug selection and dosing.", "This result signifies that the patient has one copy of a normal function allele and one copy of an increased function allele. Based on the genotype result this patient is predicted to be a rapid metabolizer of CYP2C19 substrates. This patient may be at risk for an adverse or poor response to medications that are metabolized by CYP2C19. To avoid an untoward drug response, dose adjustments or alternative therapeutic agents may be necessary for medications metabolized by CYP2C19. Please consult a clinical pharmacist for more information about how CYP2C19 metabolic status influences drug selection and dosing.", "This result signifies that the patient has two copies of an increased function allele. Based on the genotype result this patient is predicted to be an ultrarapid metabolizer of CYP2C19 substrates. This patient may be at risk for an adverse or poor response to medications that are metabolized by CYP2C19. To avoid an untoward drug response, dose adjustments or alternative therapeutic agents may be necessary for medications metabolized by CYP2C19. Please consult a clinical pharmacist for more information about how CYP2C19 metabolic status influences drug selection and dosing."};
 
+/* Drugs metabolized by CYP2C19 */
+static const char * const cyp2c19_substrates[] = {
+    "3,4-methylenedioxymethamphetamine",
+    "amitriptyline",
+    "brivaracetam",
+    "bupropion",
+    "busulfan",
+    "carisoprodol",
+    "citalopram",
+    "clobazam",
+    "clomipramine",
+    "clopidogrel",
+    "cyclophosphamide",
+    "dexlansoprazole",
+    "diazepam",
+    "dipyrone",
+    "doxepin",
+    "escitalopram",
+    "esomeprazole",
+    "etravirine",
+    "icotinib",
+    "imipramine",
+    "lansoprazole",
+    "mephenytoin",
+    "methadone",
+    "methylphenobarbital",
+    "nelfinavir",
+    "nevirapine",
+    "omeprazole",
+    "pantoprazole",
+    "phenazepam",
+    "phenytoin",
+    "prasugrel",
+    "progesterone",
+    "rabeprazole",
+    "sertraline",
+    "tacrolimus",
+    "tamoxifen",
+    "trimipramine",
+    "valproic acid",
+    "venlafaxine",
+    "voriconazole",
+    "warfarin",
+    NULL   /* Sentinel value */
+};
+
+#define CYP2C19_SUBSTRATE_COUNT (sizeof(cyp2c19_substrates) / sizeof(cyp2c19_substrates[0]) - 1)
+
+ /* CYP2C19 inducers */
+static const char * const cyp2c19_inducers[] = {
+    "artemisinin",
+    "carbamazepine",
+    "efavirenz",
+    "norethisterone",
+    "rifampicin",
+    "ritonavir",
+    NULL
+};
+
+/* CYP2C19 inhibitors */
+static const char * const cyp2c19_inhibitors[] = {
+    "chloramphenicol",
+    "esomeprazole",
+    "felbamate",
+    "fluvoxamine",
+    "isoniazid",
+    "lansoprazole",
+    "moclobemide",
+    "omeprazole",
+    NULL
+};
 
 #endif

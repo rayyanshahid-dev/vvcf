@@ -23,7 +23,7 @@ $(TARGET): $(SRCS)
 	@echo "Built on: $$(date)\n"
 
 run:
-	./$(TARGET)
+	./$(TARGET) data/bam/*.bam output/report.md
 
 # Clean target to remove the compiled binary
 clean:

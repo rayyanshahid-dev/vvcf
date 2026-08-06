@@ -54,5 +54,6 @@ Executable binaries will be provided - on Windows, there is no need to build the
 ## Notes
 
 For now, the tool is limited to one gene (CYP2C19) and only parses BAM files. Additionally, it is designed to format output documents into Markdown, so please ensure to add the '.md' file extension to your output filename when calling the program.
+
 ## status
 in active development

@@ -66,6 +66,7 @@
 
 static void usage_info(FILE *fp){
     printf("Usage: vvcf [inputfile] [outputfile]\n");
+
 }
 
 int main(int argc, char *argv[]){
@@ -78,13 +79,9 @@ int main(int argc, char *argv[]){
     // 2. look up allele functionality reference to see function status
     // 3. combine two alleles to form diplotype and reference against diplotype phenotype table
     // 4. take clinical data from CDS and assign based on phenotype
-/*    for (int i = 0; i < 1000000; i++){
-        for (int j = 0; j < allele_name_count; j++){
-        volatile const char *name = cyp2c19_allele_names[j]; 
-        }
-    }
-*/
+
     return file_read(argc, argv);
+
 
     return 0;
 }
