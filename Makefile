@@ -6,7 +6,7 @@ WCC	   = x86_64-w64-mingw32-gcc
 TARGET = vvcf
 
 CFLAGS   = -Wall -Wextra -O3 -march=native -static -std=c99 
-WCFLAGS  = -Wno-error=implicit-function-declaration
+WCFLAGS  = -Wno-error=implicit-function-declaration -static
 LDFLAGS  = -lhts -lz -lm 
 WLDFLAGS = -lhts -lz -lm -lbz2 -llzma -lws2_32 -lsystre -ltre -lregex -lintl -liconv
 LDLIBS   =  
