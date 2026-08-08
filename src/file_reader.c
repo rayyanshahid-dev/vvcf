@@ -7,21 +7,32 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <stdint.h>
+#include <immintrin.h>
 #include <htslib/sam.h>
 #include "../includes/cyp2c19_allele_lut.h"
 #include "../includes/cyp2c19_cds_lut.h"
 #include "../includes/dtable_lut.h"
 
+#define MEMORY_BUFFER (64 * 1024) // 64kb buffer to avoid the overhead of fprintf syscalls, just testing
+
 #define TARGET_COUNT 35
 #define BASE_COUNT   5
 
+
     /* these are just rough numbers at present, can decide to change them 
-    if they end up replicating the results from the base tally and the 
-    sample report used as reference */
+       if they end up replicating the results from the base tally and the 
+       sample report used as reference */
 
 #define MIN_DEPTH     10  /* reads to decide whether a variant is called */
 #define HET_DEPTH     0.2 /* above this we decide there's a variant present, up to HOM_ALT_DEPTH */
 #define HOM_ALT_DEPTH 0.8 /* 80% and above, it's a homozygous call */
+
+
+    /* TODO: IO based functions here using memory buffer.
+       IO is basically the biggest source of overhead in this program, 
+       even if the compiler optimizes some stuff out to SIMD
+       The naive version has fprintf everywhere which will be removed
+    */
 
 static inline int is_target_position(int ref_pos){
      for (int i = 0; i < TARGET_COUNT; i++) {
@@ -48,11 +59,11 @@ static inline int base_to_index(uint8_t base_code) {
 
     /* this is all general htslib BAM parsing stuff */
 
-void extract_variants(bam1_t *bamdata, uint32_t tally[TARGET_COUNT][BASE_COUNT]){
+void extract_variants_from_bam(bam1_t *bamdata, uint32_t tally[TARGET_COUNT][BASE_COUNT]){
     int flag            = bamdata->core.flag;
     if (flag & 0x4 || flag & 0x100 || flag & 0x800) return; /* filtering unused/unnecessary flags: unmapped, secondary, supplementary  */
     int ref_pos         = bamdata->core.pos + 1;  // 0-based to 1-based to match HGVS nomenclature + the existing array...
-    int l_qseq          = bamdata->core.l_qseq;  
+    // int l_qseq          = bamdata->core.l_qseq;  
     uint32_t *cigar     = bam_get_cigar(bamdata); 
     uint32_t seq_pos    = 0;
     uint8_t *seq        = bam_get_seq(bamdata);
@@ -98,7 +109,6 @@ void extract_variants(bam1_t *bamdata, uint32_t tally[TARGET_COUNT][BASE_COUNT])
        * 10 reads or below = discard
        * 20% < x < 80% threshold = heterozygous
        * >80% = homozygous
-
     */
 
 int call_var_at_pos(uint32_t *tally) {
@@ -142,7 +152,6 @@ int call_var_at_pos(uint32_t *tally) {
     }
 }
 
-
 /*  here, we set up the mask used against the bitmasked alleles.
     again, if the result is between a certain threshold determined
     above, the allele is said to be heterozygous. If the reads
@@ -161,6 +170,10 @@ uint64_t observed_mask(uint32_t tally[TARGET_COUNT][BASE_COUNT]){
         be useless because it would show up against every single one (because 
         of the alleles present in it as the reference). That's why *38 is not 
         counted, similar to the situation with the 0x0 alleles.*/ 
+
+        // TODO: the given BAM file tested had no reads for other positions
+        //       that would have also presented for *2, so more testing is needed
+
 
         if(call == 2 || call == 3){
             mask |= (1ULL << i);           
@@ -221,7 +234,7 @@ void print_report(FILE *fp, uint32_t tally[TARGET_COUNT][BASE_COUNT]) {
                 tally[i][0], tally[i][1], tally[i][2], tally[i][3], tally[i][4], total);
     }
 
-/*    we assign uint64_t mask to the value of the observed mask, 
+/*    we assign uint64_t mask the value of the observed mask, 
     and we bitwise OR the two alleles [i] and [j] here as we're 
     making a diploid to combine them into one 64-bit uint. then we do mask 
     (which is observed mask taking in tally which is half its size because 
@@ -268,7 +281,9 @@ void print_report(FILE *fp, uint32_t tally[TARGET_COUNT][BASE_COUNT]) {
     fprintf(fp, "\n## Clinical Interpretation\n\n");
     fprintf(fp, "**Alleles matched:** %s / %s\n", name_a, name_b);
     
-    fprintf(fp, "**Functions:** %d / %d\n", func_a, func_b);
+   /* fprintf(fp, "**Functions:** %d / %d\n", func_a, func_b);*/
+    fprintf(fp, "**Allele Function A:** %s\n", cyp2c19_function_names[func_a]);
+    fprintf(fp, "**Allele Function B:** %s\n", cyp2c19_function_names[func_b]);
     fprintf(fp, "**Phenotype:** %s\n", phenotype_name);
     
     fprintf(fp, "\n**Interpretation:**\n%s\n", interpretation);
@@ -339,7 +354,7 @@ int file_read(int argc, char *argv[]) {
     
     /* main file read loop */
     while ((ret_r = sam_read1(inputfile, in_sam_header, bamdata)) >= 0) {
-        extract_variants(bamdata, tally);
+        extract_variants_from_bam(bamdata, tally);
         record_count++;
     }
 

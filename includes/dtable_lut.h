@@ -22,6 +22,15 @@ typedef enum {
     FUNC_UNKNOWN = 5
 } cyp2c19_allele_function;
 
+static const char * const cyp2c19_function_names[] = {
+    "Normal",
+    "Decreased",
+    "No Function",
+    "Increased",
+    "Uncertain",
+    "Unknown"
+};
+
 static const struct {
     const char *name;
     cyp2c19_allele_function func;
