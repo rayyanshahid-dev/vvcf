@@ -22,8 +22,8 @@ $(TARGET): $(SRCS)
 	$(CC) $(CFLAGS) -o $(TARGET) $(SRCS) $(LDFLAGS) $(LDLIBS)   
 	@echo "Built on: $$(date)\n"
 
-run:
-	./$(TARGET) data/bam/*.bam output/report.md
+#run:
+#	./$(TARGET) data/bam/*.bam output/report.md
 
 # Clean target to remove the compiled binary
 clean:
