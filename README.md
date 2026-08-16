@@ -4,7 +4,7 @@
 
 vvcf is a cache-oblivious pharmacogenomics report generator implemented in C, with build-time LUT generation in Julia. At runtime, it ingests BAM streams via htslib, performs bitwise lookups, and resolves diplotype-phenotype pairs using dense, compile-time-embedded reference tables from PharmVar, CPIC, and ClinPGx.
 
-All hot lookup tables are placed in .rodata to guarantee L1/L2 residency, yielding a working set of 1.5 MB and throughput of ~500,000 reads per second. A full 3-million-read BAM ( is processed in 6.2 seconds end-to-end, including report generation. Correctness has been validated against two clinically sequenced BAMs and reviewed by a practicing clinical researcher. The final binary is statically linked and distributed as a single executable for Linux and Windows x86_64.
+All hot lookup tables are placed in .rodata to guarantee L1/L2 residency, yielding a working set of 1.5 MB and throughput of ~500,000 reads per second. A full 3-million-read BAM (hotspot tested) is processed in 6.2 seconds end-to-end, including report generation. Correctness has been validated against two clinically sequenced BAMs and reviewed by a practicing clinical researcher. The final binary is statically linked and distributed as a single executable for Linux and Windows x86_64.
 
 
 ## How vvcf Works
